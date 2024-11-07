@@ -10,14 +10,23 @@ const ADDR = "0x96Afdf14eE40A97Ac724301Edaa1c5a8b24F6a6d"; // replace with the a
  */
 export async function main() {
   const provider = await createProvider();
+  console.log('生成されたprovider', provider)
 
   const amountToSend: bigint = parseEther("0.0001");
 
-  const result: SendUserOperationResult = await provider.sendUserOperation({
-    target: ADDR,
-    data: "0x",
-    value: amountToSend,
-  });
+  let result: SendUserOperationResult;
+  try {
+    result = await provider.sendUserOperation({
+      target: ADDR,
+      data: "0x",
+      value: amountToSend,
+    });
+  } catch (error) {
+    console.error("sendUserOperation failed: ", error.message);
+    console.error("Error URL: ", error.request?.url);
+    console.error("Request body: ", JSON.stringify(error.request?.body, null, 2));
+    throw error; // エラーを再スローして、呼び出し元で処理できるようにします
+  }
 
   console.log("User operation result: ", result);
 
