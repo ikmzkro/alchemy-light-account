@@ -1,6 +1,6 @@
 import {
   LightSmartContractAccount,
-  getDefaultLightAccountFactory,
+  getDefaultLightAccountFactoryAddress,
 } from "@alchemy/aa-accounts";
 import { AlchemyProvider } from "@alchemy/aa-alchemy";
 import { LocalAccountSigner, SmartAccountSigner } from "@alchemy/aa-core";
@@ -35,7 +35,7 @@ export default async function createProvider() {
         entryPointAddress: ENTRYPOINT_ADDRESS,
         chain: rpcClient.chain,
         owner: eoaSigner,
-        factoryAddress: getDefaultLightAccountFactory(rpcClient.chain), // Default address for Light Account on Sepolia, you can replace it with your own.
+        factoryAddress: getDefaultLightAccountFactoryAddress(rpcClient.chain), // Default address for Light Account on Sepolia, you can replace it with your own.
         rpcClient,
       })
   );
